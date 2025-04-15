@@ -1,0 +1,47 @@
+<div class="net-zero-container">
+    <div class="optimization-strategy-panel">
+        <h3>Active Optimization Strategies</h3>
+        <div class="strategy-list" id="active-strategies">
+            <!-- Filled by JavaScript -->
+        </div>
+        <div class="carbon-timeline">
+            <h4>Carbon Reduction Timeline</h4>
+            <div class="timeline" id="carbon-timeline"></div>
+        </div>
+    </div>
+    
+    <div class="main-dashboard">
+        <div class="energy-flow-diagram">
+            <h3>Real-Time Energy Flow</h3>
+            <div class="flow-diagram" id="energy-flow"></div>
+        </div>
+        
+        <div class="system-synergy-controls">
+            <h3>System Priority Adjustments</h3>
+            <div class="priority-sliders">
+                <div class="slider-control">
+                    <label>ACMV vs Passive Cooling</label>
+                    <input type="range" id="acmv-passive-balance" min="0" max="100" value="50">
+                </div>
+                <div class="slider-control">
+                    <label>Solar Self-Consumption</label>
+                    <input type="range" id="solar-usage-priority" min="0" max="100" value="75">
+                </div>
+                <div class="slider-control">
+                    <label>Carbon vs Cost Priority</label>
+                    <input type="range" id="carbon-cost-balance" min="0" max="100" value="60">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="carbon-breakdown-panel">
+        <h3>Embodied Carbon Breakdown</h3>
+        <div class="breakdown-chart" id="carbon-breakdown-chart"></div>
+        <div class="material-actions">
+            <button class="action-btn" id="optimize-materials">
+                <i class="fas fa-leaf"></i> Optimize Material Selection
+            </button>
+        </div>
+    </div>
+</div>

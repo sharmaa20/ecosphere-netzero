@@ -1,0 +1,58 @@
+<div class="energy-dashboard">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Building Energy Consumption</h3>
+                    <div class="card-controls">
+                        <select id="energy-metric-select">
+                            <option value="total">Total Energy</option>
+                            <option value="hvac">HVAC</option>
+                            <option value="lighting">Lighting</option>
+                            <option value="equipment">Equipment</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="energy-chart" id="energy-trend-chart"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Optimization Suggestions</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="suggestion-list" id="optimization-suggestions">
+                        <!-- Filled by JavaScript -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3>System Efficiency</h3>
+                </div>
+                <div class="card-body">
+                    <div class="gauge-chart" id="hvac-efficiency-gauge"></div>
+                    <div class="gauge-chart" id="lighting-efficiency-gauge"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Predictive Energy Demand</h3>
+                </div>
+                <div class="card-body">
+                    <div class="prediction-chart" id="energy-demand-prediction"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
