@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paint & CO₂ Capture Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { background: #f4f7fb; font-family: 'Roboto', sans-serif; padding-top: 40px; }
+    .container { max-width: 1200px; }
+    .card { margin-bottom: 30px; border-radius: 10px; box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
+    .card-header { background-color: #2c3e50; color: white; font-weight: bold; text-align: center; padding: 15px; border-radius: 10px 10px 0 0; }
+    .card-body { background-color: #fff; padding: 20px; border-radius: 10px; }
+    .header { background-color: #2c3e50; color: white; padding: 20px; text-align: center; font-family: 'Lato', sans-serif; }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <h1>🎨 Paint CO₂ Capture Dashboard</h1>
+  <p>Real-Time Absorption & Efficiency Monitoring</p>
+</header>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-lg-4">
+      <div class="card">
+        <div class="card-header">🧮 CO₂ Absorbed Today</div>
+        <div class="card-body"><canvas id="co2Absorbed"></canvas></div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card">
+        <div class="card-header">📉 Predicted Absorption (Week)</div>
+        <div class="card-body"><canvas id="predictedAbsorption"></canvas></div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card">
+        <div class="card-header">🎯 Efficiency Score</div>
+        <div class="card-body"><canvas id="efficiencyScore"></canvas></div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card">
+        <div class="card-header">📊 Zone Comparison (ppm)</div>
+        <div class="card-body"><canvas id="zoneComparison"></canvas></div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card">
+        <div class="card-header">⚠️ Performance Anomalies</div>
+        <div class="card-body"><canvas id="performanceAnomalies"></canvas></div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card">
+        <div class="card-header">🔁 Paint Effectiveness Over Time</div>
+        <div class="card-body"><canvas id="effectivenessTrend"></canvas></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const barChart = (label, data, color) => ({
+  labels: ["Zone A","Zone B","Zone C","Zone D"],
+  datasets: [{ label, data, backgroundColor: color }]
+});
+
+new Chart(document.getElementById('co2Absorbed'), { type:'bar', data: barChart('CO₂ Absorbed (g)', [220,240,190,260], '#27ae60') });
+new Chart(document.getElementById('predictedAbsorption'), {
+  type:'line',
+  data: { labels:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], datasets:[{ label:'Predicted Absorption', data:[1200,1250,1300,1280,1320,1290,1350], borderColor:'#16a085', backgroundColor:'#16a08533', tension:0.4 }] }
+});
+new Chart(document.getElementById('efficiencyScore'), { type:'bar', data: barChart('Efficiency (%)', [85,78,92,88], '#f39c12') });
+new Chart(document.getElementById('zoneComparison'), { type:'bar', data: barChart('CO₂ ppm Reduction', [40,35,50,45], '#2980b9') });
+new Chart(document.getElementById('performanceAnomalies'), {
+  type:'bar',
+  data: {
+    labels:["Zone A","Zone B","Zone C","Zone D"],
+    datasets:[
+      { label:'Expected', data:[250,260,230,270], backgroundColor:'#bdc3c7' },
+      { label:'Actual', data:[220,240,190,260], backgroundColor:'#e74c3c' }
+    ]
+  }
+});
+new Chart(document.getElementById('effectivenessTrend'), {
+  type:'line',
+  data: { labels:["Week 1","Week 2","Week 3","Week 4"], datasets:[{ label:'Absorption Efficiency (%)', data:[85,83,80,79], borderColor:'#9b59b6', backgroundColor:'#9b59b633', tension:0.3 }] }
+});
+</script>
+
+</body>
+</html>

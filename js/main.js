@@ -112,3 +112,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // Remove any existing model loading code
     // The viewer now creates its own procedural model
 });
+

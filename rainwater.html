@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rainwater Harvesting Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background: #f4f7fb;
+      font-family: 'Roboto', sans-serif;
+      padding-top: 40px;
+    }
+
+    .container {
+      max-width: 1200px;
+    }
+
+    .card {
+      margin-bottom: 30px;
+      border-radius: 10px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    }
+
+    .card-header {
+      background-color: #2c3e50;
+      color: #fff;
+      font-weight: bold;
+      text-align: center;
+      padding: 15px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+
+    .card-body {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .chart-container {
+      position: relative;
+      height: 300px;
+      width: 100%;
+    }
+
+    .header, .footer {
+      background-color: #2c3e50;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+      font-size: 18px;
+    }
+
+    .header h1 {
+      font-family: 'Lato', sans-serif;
+    }
+
+    .card-header i {
+      margin-right: 10px;
+    }
+
+    .card-header:hover {
+      background-color: #34495e;
+      cursor: pointer;
+    }
+
+    .footer a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <h1>💧 Rainwater Harvesting Dashboard</h1>
+    <p>Optimizing Resource Usage & Monitoring Efficiency</p>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-lg-4">
+        <div class="card">
+          <div class="card-header">
+            <i class="bi bi-cloud-rain"></i> 🌧️ Rainfall → Harvest Forecast
+          </div>
+          <div class="card-body chart-container">
+            <canvas id="rainHarvestForecast"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="card">
+          <div class="card-header">
+            <i class="bi bi-droplet"></i> 💧 Predicted Water Use per Zone
+          </div>
+          <div class="card-body chart-container">
+            <canvas id="waterUsageForecast"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="card">
+          <div class="card-header">
+            <i class="bi bi-lightning"></i> ⚡ Pump Energy Consumption (per Zone)
+          </div>
+          <div class="card-body chart-container">
+            <canvas id="pumpEnergy"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="card">
+          <div class="card-header">
+            <i class="bi bi-bar-chart-line"></i> ♻️ Efficiency Score (L/kWh)
+          </div>
+          <div class="card-body chart-container">
+            <canvas id="efficiencyScore"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="card">
+          <div class="card-header">
+            <i class="bi bi-exclamation-triangle"></i> 🛑 Anomaly Detection (Rainfall vs Harvest)
+          </div>
+          <div class="card-body chart-container">
+            <canvas id="rainAnomaly"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+  </footer>
+
+  <script>
+    const dailyLine = (label, color) => ({
+      labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      datasets: [{
+        label: label,
+        data: Array.from({ length: 7 }, () => Math.floor(Math.random() * 500 + 200)),
+        fill: true,
+        borderColor: color,
+        backgroundColor: color + '33',
+        tension: 0.4
+      }]
+    });
+
+    new Chart(document.getElementById('rainHarvestForecast'), {
+      type: 'line',
+      data: dailyLine('Forecasted Harvest (L)', '#1abc9c')
+    });
+
+    new Chart(document.getElementById('waterUsageForecast'), {
+      type: 'bar',
+      data: {
+        labels: ["Zone A", "Zone B", "Zone C", "Zone D"],
+        datasets: [{
+          label: 'Predicted Usage (L)',
+          data: [800, 950, 1020, 870],
+          backgroundColor: '#3498db'
+        }]
+      }
+    });
+
+    new Chart(document.getElementById('pumpEnergy'), {
+      type: 'bar',
+      data: {
+        labels: ["Zone A", "Zone B", "Zone C", "Zone D"],
+        datasets: [{
+          label: 'Pump Energy (kWh)',
+          data: [120, 110, 140, 100],
+          backgroundColor: '#f39c12'
+        }]
+      }
+    });
+
+    new Chart(document.getElementById('efficiencyScore'), {
+      type: 'bar',
+      data: {
+        labels: ["Zone A", "Zone B", "Zone C", "Zone D"],
+        datasets: [{
+          label: 'Efficiency (L/kWh)',
+          data: [6.8, 7.1, 6.3, 8.0],
+          backgroundColor: '#2ecc71'
+        }]
+      }
+    });
+
+    new Chart(document.getElementById('rainAnomaly'), {
+      type: 'bar',
+      data: {
+        labels: ["Zone A", "Zone B", "Zone C", "Zone D"],
+        datasets: [
+          {
+            label: 'Expected Harvest (L)',
+            data: [850, 1000, 1100, 900],
+            backgroundColor: '#95a5a6'
+          },
+          {
+            label: 'Actual Harvest (L)',
+            data: [600, 970, 700, 880],
+            backgroundColor: '#e74c3c'
+          }
+        ]
+      }
+    });
+  </script>
+</body>
+</html>
+
+
+

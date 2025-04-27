@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ACMV & HVAC Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { background: #f4f7fb; font-family: 'Roboto', sans-serif; padding-top: 40px; }
+    .container { max-width: 1200px; }
+    .card { margin-bottom: 30px; border-radius: 10px; box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
+    .card-header { background-color: #2c3e50; color: white; font-weight: bold; text-align: center; padding: 15px; border-radius: 10px 10px 0 0; }
+    .card-body { background-color: #fff; padding: 20px; border-radius: 10px; }
+    .header { background-color: #2c3e50; color: white; padding: 20px; text-align: center; font-family: 'Lato', sans-serif; }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <h1>🌀 ACMV & HVAC Dashboard</h1>
+  <p>Temperature, Fan Energy and CO₂ Efficiency</p>
+</header>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-lg-4">
+      <div class="card">
+        <div class="card-header">🌡️ Zone Temp Delta</div>
+        <div class="card-body"><canvas id="tempDelta"></canvas></div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card">
+        <div class="card-header">🧮 Predicted Fan Energy</div>
+        <div class="card-body"><canvas id="fanEnergy"></canvas></div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card">
+        <div class="card-header">📈 CO₂ vs Fan Energy</div>
+        <div class="card-body"><canvas id="co2Fan"></canvas></div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card">
+        <div class="card-header">🎯 Cooling Efficiency Score</div>
+        <div class="card-body"><canvas id="coolingEfficiency"></canvas></div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card">
+        <div class="card-header">📊 Occupancy-Driven Runtime</div>
+        <div class="card-body"><canvas id="occupancyControl"></canvas></div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card">
+        <div class="card-header">🔄 CO₂-Based Trigger</div>
+        <div class="card-body"><canvas id="co2Trigger"></canvas></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const simpleBar = (label, values, color) => ({
+  labels: ["Zone A","Zone B","Zone C","Zone D"],
+  datasets: [{ label: label, data: values, backgroundColor: color }]
+});
+
+const timeLabels = ["8am","10am","12pm","2pm","4pm","6pm"];
+
+new Chart(document.getElementById('tempDelta'), { type:'bar', data: simpleBar('Temp Delta (°C)', [5.2,4.8,6.1,5.9], '#f39c12') });
+new Chart(document.getElementById('fanEnergy'), { type:'bar', data: simpleBar('Fan Energy (kWh)', [30,25,28,32], '#2980b9') });
+new Chart(document.getElementById('co2Fan'), {
+  type: 'line',
+  data: {
+    labels: timeLabels,
+    datasets: [
+      { label:'CO₂ (ppm)', data:[420,460,510,550,500,480], borderColor:'#e74c3c', backgroundColor:'#e74c3c33', yAxisID:'y1', tension:0.4 },
+      { label:'Fan Energy (kWh)', data:[10,14,18,20,15,12], borderColor:'#27ae60', backgroundColor:'#27ae6033', yAxisID:'y2', tension:0.4 }
+    ]
+  },
+  options: {
+    scales: {
+      y1: { type:'linear', position:'left' },
+      y2: { type:'linear', position:'right', grid:{drawOnChartArea:false} }
+    }
+  }
+});
+new Chart(document.getElementById('coolingEfficiency'), { type:'bar', data: simpleBar('Efficiency Index', [1.2,1.4,1.1,1.5], '#8e44ad') });
+new Chart(document.getElementById('occupancyControl'), {
+  type:'line',
+  data: {
+    labels: timeLabels,
+    datasets: [
+      { label:'Predicted Occupancy', data:[30,45,60,55,40,25], borderColor:'#34495e', backgroundColor:'#34495e33', tension:0.4 },
+      { label:'Recommended Runtime', data:[20,35,50,45,30,15], borderColor:'#1abc9c', backgroundColor:'#1abc9c33', tension:0.4 }
+    ]
+  }
+});
+new Chart(document.getElementById('co2Trigger'), {
+  type:'bar',
+  data: {
+    labels: timeLabels,
+    datasets: [{ label:'CO₂ ppm', data:[400,420,550,600,480,430], backgroundColor:['#2ecc71','#2ecc71','#e74c3c','#e74c3c','#f39c12','#2ecc71'] }]
+  }
+});
+</script>
+
+</body>
+</html>

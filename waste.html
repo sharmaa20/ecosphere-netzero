@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Waste Management & Carbon Savings</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { background: #f4f7fb; font-family: 'Roboto', sans-serif; padding-top: 40px; }
+    .container { max-width: 1200px; }
+    .card { margin-bottom: 30px; border-radius: 10px; box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
+    .card-header { background-color: #2c3e50; color: white; font-weight: bold; text-align: center; padding: 15px; border-radius: 10px 10px 0 0; }
+    .card-body { background-color: #fff; padding: 20px; border-radius: 10px; }
+    .table-responsive { padding: 10px; }
+    .header { background-color: #2c3e50; color: white; padding: 20px; text-align: center; font-family: 'Lato', sans-serif; }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <h1>🗑️ Waste Management & Carbon Savings</h1>
+  <p>Tracking Sustainability, Waste Efficiency and CO₂ Savings</p>
+</header>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-lg-4">
+      <div class="card">
+        <div class="card-header">♻️ Waste Breakdown</div>
+        <div class="card-body"><canvas id="wastePieChart"></canvas></div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card">
+        <div class="card-header">🌍 Net CO₂ Savings Trend</div>
+        <div class="card-body"><canvas id="co2SavingsTrend"></canvas></div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card">
+        <div class="card-header">⚖️ Waste Factor by Material</div>
+        <div class="card-body"><canvas id="wasteByMaterial"></canvas></div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card">
+        <div class="card-header">🔬 Emissions Forecast Model</div>
+        <div class="card-body"><canvas id="emissionsForecast"></canvas></div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">🧩 Upcycling Effectiveness Table</div>
+        <div class="card-body table-responsive">
+          <table class="table table-striped">
+            <thead class="table-light">
+              <tr>
+                <th>Material</th>
+                <th>Waste (kg)</th>
+                <th>Reused Product</th>
+                <th>Recovered (kg)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Plastic</td><td>120</td><td>Tiles</td><td>95</td></tr>
+              <tr><td>Concrete</td><td>300</td><td>Recycled Block</td><td>260</td></tr>
+              <tr><td>Wood</td><td>85</td><td>Furniture Panels</td><td>70</td></tr>
+              <tr><td>Glass</td><td>50</td><td>Insulation</td><td>40</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+new Chart(document.getElementById('wastePieChart'), {
+  type:'pie',
+  data: {
+    labels:['Recycled','Repurposed','Reused','Landfilled'],
+    datasets:[{ data:[35,25,20,20], backgroundColor:['#27ae60','#2980b9','#f39c12','#c0392b'] }]
+  }
+});
+
+new Chart(document.getElementById('co2SavingsTrend'), {
+  type:'line',
+  data: {
+    labels:["Week 1","Week 2","Week 3","Week 4"],
+    datasets:[{ label:'Net CO₂ Saved (kg)', data:[320,340,410,390], borderColor:'#16a085', backgroundColor:'#16a08533', tension:0.4 }]
+  }
+});
+
+new Chart(document.getElementById('wasteByMaterial'), {
+  type:'bar',
+  data: {
+    labels:['Precast','In-situ','Steel','Glass','Wood'],
+    datasets:[{ label:'Waste Factor (%)', data:[12,18,9,14,11], backgroundColor:'#8e44ad' }]
+  }
+});
+
+new Chart(document.getElementById('emissionsForecast'), {
+  type:'line',
+  data: {
+    labels:["Week 1","Week 2","Week 3","Week 4"],
+    datasets:[{ label:'Forecasted Emissions (kg CO₂)', data:[500,520,510,530], borderColor:'#e67e22', backgroundColor:'#e67e2233', tension:0.4 }]
+  }
+});
+</script>
+
+</body>
+</html>

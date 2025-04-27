@@ -66,5 +66,22 @@
     </div>
 
     <script src="js/main.js"></script>
+
+    <!-- Admin Button -->
+<button onclick="showLogin()" class="admin-btn">Admin</button>
+
+<!-- Login Modal -->
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <span onclick="hideLogin()" class="close">&times;</span>
+    <h2>Admin Login</h2>
+    <form onsubmit="return handleLogin(event)">
+      <input type="text" placeholder="Username" required />
+      <input type="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+  </div>
+</div>
+
 </body>
 </html>
